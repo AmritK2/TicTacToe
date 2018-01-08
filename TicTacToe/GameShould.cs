@@ -34,10 +34,10 @@ namespace TicTacToe
                   "...\n" +
                   "...",
                   "X",
-                  "2,2",
+                  "2,1",
 
-                  ".X.\n" +
                   "...\n" +
+                  "X..\n" +
                   "...")]
 
         [TestCase("...\n" +
@@ -46,9 +46,17 @@ namespace TicTacToe
                   "O",
                   "2,2",
 
-                  ".O.\n" +
                   "...\n" +
+                  ".O.\n" +
                   "...")]
+
+//        [TestCase("...\n" +
+//                  ".O.\n" +
+//                  "...",
+//                  "X",
+//                  "2,2",
+//
+//                "Oh no, a piece is already at this place! Try again...")]
 
 
         public void ShouldReturnOutputBoard(string inputBoard, string letter, string coord, string outputBoard)
