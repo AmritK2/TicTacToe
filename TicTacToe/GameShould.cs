@@ -50,13 +50,15 @@ namespace TicTacToe
                   ".O.\n" +
                   "...")]
 
-//        [TestCase("...\n" +
-//                  ".O.\n" +
-//                  "...",
-//                  "X",
-//                  "2,2",
-//
-//                "Oh no, a piece is already at this place! Try again...")]
+        [TestCase("...\n" +
+                  "...\n" +
+                  ".X.",
+                  "O",
+                  "3,2",
+
+                  "...\n" +
+                  "...\n" +
+                  ".X.")]
 
 
         public void ShouldReturnOutputBoard(string inputBoard, string letter, string coord, string outputBoard)

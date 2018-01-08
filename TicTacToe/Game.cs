@@ -19,13 +19,20 @@ namespace TicTacToe
                 {
                     if (row == int.Parse(position[0]) - 1 && column == int.Parse(position[1]) - 1)
                     {
-                        outputBoard += letter;
+                        if (arrayBoard[row][column] == '.')
+                        {
+                            outputBoard += letter;
+                        }
+                        else
+                        {
+                            outputBoard += arrayBoard[row][column];
+                        }
+                        
                     }
                     else
                     {
                         outputBoard += arrayBoard[row][column];
                     }
-
 
                 }
                 outputBoard += "\n";
