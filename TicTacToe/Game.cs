@@ -13,32 +13,53 @@ namespace TicTacToe
             var outputBoard = string.Empty;
             var position = coord.Split(',');
             var arrayBoard = inputBoard.Split('\n');
-            for (var row = 0; row < arrayBoard.Length; row++)
+
+            if (letter != "q")
             {
-                for (int column = 0; column < arrayBoard.Length; column++)
+                for (var row = 0; row < arrayBoard.Length; row++)
                 {
-                    if (row == int.Parse(position[0]) - 1 && column == int.Parse(position[1]) - 1)
+                    for (int column = 0; column < arrayBoard.Length; column++)
                     {
-                        if (arrayBoard[row][column] == '.')
+                        if (row == int.Parse(position[0]) - 1 && column == int.Parse(position[1]) - 1)
                         {
-                            outputBoard += letter;
+                            if (arrayBoard[row][column] == '.')
+                            {
+                                outputBoard += letter;
+                            }
+                            else
+                            {
+                                outputBoard += arrayBoard[row][column];
+                            }
+
                         }
                         else
                         {
                             outputBoard += arrayBoard[row][column];
                         }
-                        
+
                     }
-                    else
-                    {
-                        outputBoard += arrayBoard[row][column];
-                    }
+                    outputBoard += "\n";
 
                 }
-                outputBoard += "\n";
 
+                return outputBoard.TrimEnd('\n');
             }
+            var result = ResetBoard(arrayBoard);
+            return result;
+        }
 
+        private string ResetBoard(string[] arrayBoard)
+        {
+            var outputBoard = "";
+            var reset = ".";
+            for (var row = 0; row < arrayBoard.Length; row++)
+            {
+                for (int column = 0; column < arrayBoard.Length; column++)
+                {
+                    outputBoard += reset;
+                }
+                outputBoard += "\n";
+            }
             return outputBoard.TrimEnd('\n');
         }
     }
