@@ -40,6 +40,17 @@ namespace TicTacToe
                   "...\n" +
                   "...")]
 
+        [TestCase("...\n" +
+                  "...\n" +
+                  "...",
+                  "O",
+                  "2,2",
+
+                  ".O.\n" +
+                  "...\n" +
+                  "...")]
+
+
         public void ShouldReturnOutputBoard(string inputBoard, string letter, string coord, string outputBoard)
         {
             var game = new Game();
