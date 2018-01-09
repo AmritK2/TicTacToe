@@ -92,6 +92,21 @@ namespace TicTacToe
                 
             }
             return count;
+//            for (int col = arrayBoard[0].Length - 1; col >= 0; col--)
+//            {
+//
+//                int row = 0;
+//                int j = col;
+//                
+//                while (j <= arrayBoard[0].Length - 1)
+//                {
+//                    if (arrayBoard[row++][j++] == sign)
+//                    {
+//                        count++;
+//                    }
+//                }
+//            }
+//            return count;
         }
 
         private string ResetBoard(string[] arrayBoard)
