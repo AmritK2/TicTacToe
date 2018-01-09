@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NUnit.Framework.Api;
 
 namespace TicTacToe
 {
@@ -48,7 +49,7 @@ namespace TicTacToe
 
                 if (output != "")
                 {
-                    return resultedBoard + output; 
+                    return resultedBoard + '\n' + output; 
                 }
                 return outputBoard.TrimEnd('\n');
             }
@@ -60,45 +61,30 @@ namespace TicTacToe
         {
             var result = 0;
             var arrayBoard = resultedBoard.Split('\n');
-            if (result < 3)
+            for (var row = 0; row < arrayBoard.Length; row++) // rows
             {
-                for (var row = 0; row < arrayBoard.Length; row++) // rows
+                for (var column = 0; column < arrayBoard[0].Length; column++) // columns
                 {
-                    for (var column = 0; column < arrayBoard[0].Length; column++) // columns
+                    result = CheckNeighbours(letter, arrayBoard);
+                    if (result == 3)
                     {
-                        result = CheckNeighbours(letter, row, column, arrayBoard);
+                        return "You've won the game!";
                     }
                 }
-                return "";
             }
-            return "You've won the game!";
+            return "";
         }
 
-        public int CheckNeighbours(string letter, int row, int column, string[] arrayBoard)
+        public int CheckNeighbours(string letter, string[] arrayBoard)
         {
-            var totalColumns = arrayBoard[0].Length - 1;
-            var totalRows = arrayBoard.Length - 1;
-            var count = 0;
             var sign = char.Parse(letter);
+            var count = 0;
 
-            var minRows = Math.Max(0, row - 1);
-            var maxRows = Math.Min(row + 1, totalRows);
-            var minColumns = Math.Max(0, column - 1);
-            var maxColumns = Math.Min(column + 1, totalColumns);
-
-            for (int rowCoord = minRows; rowCoord <= maxRows; rowCoord++)
+            for (int column = 0; column < arrayBoard[0].Length; column++)
             {
-                for (int colCoord = minColumns; colCoord <= maxColumns; colCoord++)
+                if (arrayBoard[0][column] == sign)
                 {
-                    if (arrayBoard[rowCoord][colCoord] == sign)
-                    {
-                        if (rowCoord == row && colCoord == column)
-                        {
-                            continue;
-                        }
-                        count++;
-                    }
-
+                    count++;
                 }
             }
             return count;
