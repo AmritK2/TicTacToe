@@ -82,10 +82,14 @@ namespace TicTacToe
 
             for (int column = 0; column < arrayBoard[0].Length; column++)
             {
-                if (arrayBoard[0][column] == sign)
+                for (int row = 0; row < arrayBoard.Length; row++)
                 {
-                    count++;
+                    if (arrayBoard[row][column] == sign)
+                    {
+                        count++;
+                    }
                 }
+                
             }
             return count;
         }

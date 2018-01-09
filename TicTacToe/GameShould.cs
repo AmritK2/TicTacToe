@@ -70,15 +70,15 @@ namespace TicTacToe
                  "...\n" +
                  "...")]
 
-        [TestCase("XX.\n" +
-                  ".O.\n" +
-                  ".O.",
+        [TestCase("X.O\n" +
+                  "XO.\n" +
+                  "...",
                   "X",
-                  "1,3",
+                  "3,1",
 
-                  "XXX\n" +
-                  ".O.\n" +
-                  ".O.\n" +
+                  "X.O\n" +
+                  "XO.\n" +
+                  "X..\n" +
                   "You've won the game!")]
 
         public void ShouldReturnOutputBoard(string inputBoard, string letter, string coord, string outputBoard)
