@@ -12,9 +12,10 @@ namespace TicTacToe
             var position = coord.Split(',');
             var arrayBoard = inputBoard.Split('\n');
 
-            if (letter == "q") // extract
+            if (letter == "q") 
             {
-                var result = ResetBoard(arrayBoard);
+                ResetBoard resetBoard = new ResetBoard();
+                var result = resetBoard.ResettingBoard(arrayBoard);
                 return result;
             }
             for (var row = 0; row < arrayBoard.Length; row++)
@@ -54,19 +55,5 @@ namespace TicTacToe
             return outputBoard.TrimEnd('\n');
         }
         
-        private static string ResetBoard(string[] arrayBoard)
-        {
-            var outputBoard = "";
-            const string reset = ".";
-            for (var row = 0; row < arrayBoard.Length; row++)
-            {
-                for (int column = 0; column < arrayBoard.Length; column++)
-                {
-                    outputBoard += reset;
-                }
-                outputBoard += "\n";
-            }
-            return outputBoard.TrimEnd('\n');
-        }
     }
 }
