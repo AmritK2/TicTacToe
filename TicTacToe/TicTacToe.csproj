@@ -50,7 +50,7 @@
   <ItemGroup>
     <Compile Include="Game.cs" />
     <Compile Include="GameShould.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="GameConsoled.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

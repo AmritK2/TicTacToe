@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NUnit.Framework.Api;
+using NUnit.Framework;
 
 namespace TicTacToe
 {
@@ -16,24 +12,21 @@ namespace TicTacToe
             var position = coord.Split(',');
             var arrayBoard = inputBoard.Split('\n');
 
-            if (letter != "q")
+            if (letter == "q") // extract
             {
-                for (var row = 0; row < arrayBoard.Length; row++)
+                var result = ResetBoard(arrayBoard);
+                return result;
+            }
+            for (var row = 0; row < arrayBoard.Length; row++)
+            {
+                for (int column = 0; column < arrayBoard.Length; column++)
                 {
-                    for (int column = 0; column < arrayBoard.Length; column++)
+                    if (row == int.Parse(position[0]) - 1 && column == int.Parse(position[1]) - 1)
                     {
-                        if (row == int.Parse(position[0]) - 1 && column == int.Parse(position[1]) - 1)
+                        if (arrayBoard[row][column] == '.')
                         {
-                            if (arrayBoard[row][column] == '.')
-                            {
-                                outputBoard += letter;
+                            outputBoard += letter;
                               
-                            }
-                            else
-                            {
-                                outputBoard += arrayBoard[row][column];
-                            }
-
                         }
                         else
                         {
@@ -41,32 +34,36 @@ namespace TicTacToe
                         }
 
                     }
-                    outputBoard += "\n";
+                    else
+                    {
+                        outputBoard += arrayBoard[row][column];
+                    }
 
                 }
-                var resultedBoard = outputBoard.TrimEnd('\n');
-                var output = CheckWinner(resultedBoard, letter);
+                outputBoard += "\n";
 
-                if (output != "")
-                {
-                    return resultedBoard + '\n' + output; 
-                }
-                return outputBoard.TrimEnd('\n');
             }
-            var result = ResetBoard(arrayBoard);
-            return result;
+            var resultedBoard = outputBoard.TrimEnd('\n');
+            var output = CheckWinner(resultedBoard, letter, position);
+
+            if (output != "")
+            {
+                return resultedBoard + '\n' + output; 
+            }
+            return outputBoard.TrimEnd('\n');
         }
-        
-        public string CheckWinner(string resultedBoard, string letter)
+
+
+        public string CheckWinner(string resultedBoard, string letter, string[] position)
         {
-            var result = 0;
+           
             var arrayBoard = resultedBoard.Split('\n');
             for (var row = 0; row < arrayBoard.Length; row++) // rows
             {
                 for (var column = 0; column < arrayBoard[0].Length; column++) // columns
                 {
-                    result = CheckNeighbours(letter, arrayBoard);
-                    if (result == 3)
+                    var hasWon = CheckNeighbours(letter, arrayBoard, position);
+                    if (hasWon)
                     {
                         return "You've won the game!";
                     }
@@ -75,40 +72,61 @@ namespace TicTacToe
             return "";
         }
 
-        public int CheckNeighbours(string letter, string[] arrayBoard)
+        private List<List<Point>> WinningLines = new List<List<Point>>
+        {
+            new List<Point> { new Point(0, 0), new Point(0, 1), new Point(0, 2)},
+            new List<Point>
+            {
+                new Point(1, 0),
+                new Point(1, 1),
+                new Point(1, 2)
+            },
+            new List<Point>
+            {
+                new Point(2, 0),
+                new Point(2, 1),
+                new Point(2, 2)
+            },
+            new List<Point>
+            {
+                new Point(0, 0),
+                new Point(1, 0),
+                new Point(2, 0)
+            },
+            new List<Point>
+            {
+                new Point(0, 1),
+                new Point(1, 1),
+                new Point(2, 1)
+            },
+            new List<Point>
+            {
+                new Point(0, 2),
+                new Point(1, 2),
+                new Point(2, 2)
+            },
+            new List<Point>
+            {
+                new Point(0, 0),
+                new Point(1, 1),
+                new Point(2, 2)
+            },
+            new List<Point>
+            {
+                new Point(0, 2),
+                new Point(1, 1),
+                new Point(2, 0)
+            }
+        };
+        
+
+        public bool CheckNeighbours(string letter, string[] arrayBoard, string[] position)
         {
             var sign = char.Parse(letter);
-            var count = 0;
 
-            for (int column = 0; column < arrayBoard[0].Length; column++)
-            {
-                for (int row = 0; row < arrayBoard.Length; row++)
-                {
-                    if (arrayBoard[row][column] == sign)
-                    {
-                        count++;
-                    }
-                }
-                
-            }
-            return count;
-//            for (int col = arrayBoard[0].Length - 1; col >= 0; col--)
-//            {
-//
-//                int row = 0;
-//                int j = col;
-//                
-//                while (j <= arrayBoard[0].Length - 1)
-//                {
-//                    if (arrayBoard[row++][j++] == sign)
-//                    {
-//                        count++;
-//                    }
-//                }
-//            }
-//            return count;
+            return WinningLines.Any(winningLine => winningLine.All(point => arrayBoard[point.Row][point.Column] == sign));
         }
-
+        
         private string ResetBoard(string[] arrayBoard)
         {
             var outputBoard = "";
@@ -123,5 +141,17 @@ namespace TicTacToe
             }
             return outputBoard.TrimEnd('\n');
         }
+    }
+
+    public class Point
+    {
+        public Point(int row, int column)
+        {
+            Row = row;
+            Column = column;
+        }
+        public int Row { get; set; }
+        public int Column { get; set; }
+
     }
 }
