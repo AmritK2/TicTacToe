@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace TicTacToe
@@ -13,16 +14,23 @@ namespace TicTacToe
             string startBoard = "...\n" +
                                 "...\n" +
                                 "...";
-            Console.WriteLine("Welcome to Tic Tac Toe!\n" + startBoard + "Please input a letter and coordinates: eg. X row,col");
-            string userInput = Console.ReadLine();
-            var input = userInput.Split(' ');
-            var letter = input[0];
-            var coord = input[1];
+           // string outputBoard = "";
+            Console.WriteLine("Welcome to Tic Tac Toe!\n" + startBoard + '\n'+  "Please input a letter and coordinates: eg. X row,col");
+            while (true)
+            {
+                string userInput = Console.ReadLine();
+                var input = userInput.Split(' ');
+                var letter = input[0];
+                var coord = input[1];
 
-            Game getBoard = new Game();
-            var outputBoard = getBoard.ReturnOutputBoard(letter, coord, startBoard);
+                Game getBoard = new Game();
+                var resultedBoard = getBoard.ReturnOutputBoard(letter, coord, startBoard);
 
-            Console.WriteLine(outputBoard);
+                Console.Clear();
+                Console.WriteLine(resultedBoard);
+                startBoard = resultedBoard;
+            }
+            
         }
     }
 }
