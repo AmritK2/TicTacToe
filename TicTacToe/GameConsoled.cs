@@ -11,16 +11,21 @@ namespace TicTacToe
     {
         static void Main(string[] args)
         {
+            var changedBoard = "";
             string startBoard = "...\n" +
                                 "...\n" +
                                 "...";
             Console.WriteLine("Welcome to Tic Tac Toe!" + startBoard);
 
-            while (!startBoard.Contains("won"))
+            while (true)
             {
                 ComputerInput computerInputReturnedBoard = new ComputerInput();
-                var changedBoard = computerInputReturnedBoard.ComputerResultedBoard(startBoard);
-                Console.Clear();
+                do
+                {
+                    changedBoard = computerInputReturnedBoard.ComputerResultedBoard(startBoard);
+                } while (changedBoard == startBoard);
+
+                    Console.Clear();
                 Console.WriteLine(changedBoard + '\n' +  "Please input a letter and coordinates: eg. X row,col");
 
                 string userInput = Console.ReadLine();
@@ -35,7 +40,6 @@ namespace TicTacToe
                 Console.WriteLine(resultedBoard);
                 startBoard = resultedBoard;
             }
-            
         }
     }
 }

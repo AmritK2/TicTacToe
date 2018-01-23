@@ -46,9 +46,7 @@ namespace TicTacToe
                   "q",
                   "3,2",
 
-                 "...\n" +
-                 "...\n" +
-                 "...")]
+                 "You gave up :(")]
 
         [TestCase("X.O\n" +
                   "XO.\n" +
