@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 
@@ -8,26 +9,30 @@ namespace TicTacToe
     {
         public string ReturnOutputBoard(string letter, string coord, string inputBoard)
         {
-            var outputBoard = string.Empty;
-            var position = coord.Split(',');
-            var arrayBoard = inputBoard.Split('\n');
-
-            if (letter == "q") 
+            if (letter == "q")
             {
-                ResetBoard resetBoard = new ResetBoard();
-                var result = resetBoard.ResettingBoard(arrayBoard);
-                return result;
+                return "You gave up :(";
             }
-            for (var row = 0; row < arrayBoard.Length; row++)
-            {
-                for (var column = 0; column < arrayBoard.Length; column++)
+
+            var outputBoard = string.Empty;
+                var position = coord.Split(',');
+                var arrayBoard = inputBoard.Split('\n');
+                for (var row = 0; row < arrayBoard.Length; row++)
                 {
-                    if (row == int.Parse(position[0]) - 1 && column == int.Parse(position[1]) - 1)
+                    for (var column = 0; column < arrayBoard.Length; column++)
                     {
-                        if (arrayBoard[row][column] == '.')
+                        if (row == int.Parse(position[0]) - 1 && column == int.Parse(position[1]) - 1)
                         {
-                            outputBoard += letter;
-                              
+                            if (arrayBoard[row][column] == '.')
+                            {
+                                outputBoard += letter;
+
+                            }
+                            else
+                            {
+                                outputBoard += arrayBoard[row][column];
+                            }
+
                         }
                         else
                         {
@@ -35,25 +40,29 @@ namespace TicTacToe
                         }
 
                     }
-                    else
-                    {
-                        outputBoard += arrayBoard[row][column];
-                    }
+                    outputBoard += "\n";
 
                 }
-                outputBoard += "\n";
+
+                var resultedBoard = outputBoard.TrimEnd('\n');
+                var findWinner = new CheckingWinner();
+                var output = findWinner.CheckWinner(resultedBoard, letter, position);
+                if (resultedBoard.Contains("."))
+                {
+                    if (output != "")
+                    {
+                        return resultedBoard + '\n' + output;
+                    }
+                }
+
+                else if (!resultedBoard.Contains(".") && output == "")
+                {
+                    ResetBoard resetBoard = new ResetBoard();
+                    var result = resetBoard.ResettingBoard(arrayBoard);
+                    return result;
+                }
+                return outputBoard.TrimEnd('\n');
 
             }
-            var resultedBoard = outputBoard.TrimEnd('\n');
-            var findWinner = new CheckingWinner();
-            var output = findWinner.CheckWinner(resultedBoard, letter, position);
-
-            if (output != "")
-            {
-                return resultedBoard + '\n' + output; 
-            }
-            return outputBoard.TrimEnd('\n');
-        }
-        
     }
 }
