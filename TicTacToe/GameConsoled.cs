@@ -12,6 +12,7 @@ namespace TicTacToe
         static void Main(string[] args)
         {
             var changedBoard = "";
+            var resultedBoard = "";
             string startBoard = "...\n" +
                                 "...\n" +
                                 "...";
@@ -27,14 +28,17 @@ namespace TicTacToe
 
                 Console.Clear();
                 Console.WriteLine(changedBoard + '\n' + "Please input a letter and coordinates: eg. X row,col");
+                changedBoard = NewBoard(changedBoard);
 
-                string userInput = Console.ReadLine();
-                var input = userInput.Split(' ');
-                var letter = input[0];
-                var coord = input[1];
-
-                Game getBoard = new Game();
-                var resultedBoard = getBoard.ReturnOutputBoard(letter, coord, changedBoard);
+                do
+                {
+                    string userInput = Console.ReadLine();
+                    var input = userInput.Split(' ');
+                    var letter = input[0];
+                    var coord = input[1];
+                    Game getBoard = new Game();
+                    resultedBoard = getBoard.ReturnOutputBoard(letter, coord, changedBoard);
+                } while (resultedBoard == changedBoard);
 
                 Console.Clear();
                 Console.WriteLine(resultedBoard);
@@ -42,16 +46,16 @@ namespace TicTacToe
             }
         }
 
-        private static string NewBoard(string resultedBoard)
+        private static string NewBoard(string checkBoardForWin)
         {
             string startBoard = "...\n" +
                                 "...\n" +
                                 "...";
-            if (resultedBoard.Contains("won"))
+            if (checkBoardForWin.Contains("won"))
             {
                 return startBoard;
             }
-            return resultedBoard;
+            return checkBoardForWin;
         }
     }
 }

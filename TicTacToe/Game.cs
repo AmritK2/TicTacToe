@@ -43,7 +43,7 @@ namespace TicTacToe
                     return outputBoard + '\n' + isWinner;
                 }
             }
-            else if (!outputBoard.Contains(".") && isWinner == "")
+            else if (!outputBoard.Contains("."))
             {
                 ResetBoard resetBoard = new ResetBoard();
                 return outputBoard = resetBoard.ResettingBoard(arrayBoard);
@@ -65,6 +65,7 @@ namespace TicTacToe
             }
             else
             {
+                Console.WriteLine("You can only choose a place which is not already taken. Try Again.");
                 outputBoard += arrayBoard[row][column];
             }
 
