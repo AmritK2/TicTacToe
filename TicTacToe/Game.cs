@@ -14,53 +14,61 @@ namespace TicTacToe
                 return "You gave up :(";
             }
 
-            var outputBoard = string.Empty;
-                var position = coord.Split(',');
-                var arrayBoard = inputBoard.Split('\n');
-                for (var row = 0; row < arrayBoard.Length; row++)
+            var resultedBoard = string.Empty;
+            var position = coord.Split(',');
+            var arrayBoard = inputBoard.Split('\n');
+            for (var row = 0; row < arrayBoard.Length; row++)
+            {
+                for (var column = 0; column < arrayBoard.Length; column++)
                 {
-                    for (var column = 0; column < arrayBoard.Length; column++)
+                    if (row == int.Parse(position[0]) - 1 && column == int.Parse(position[1]) - 1)
                     {
-                        if (row == int.Parse(position[0]) - 1 && column == int.Parse(position[1]) - 1)
-                        {
-                            if (arrayBoard[row][column] == '.')
-                            {
-                                outputBoard += letter;
-
-                            }
-                            else
-                            {
-                                outputBoard += arrayBoard[row][column];
-                            }
-
-                        }
-                        else
-                        {
-                            outputBoard += arrayBoard[row][column];
-                        }
-
+                        resultedBoard = ConvertedBoardFromUserInput(letter, resultedBoard, arrayBoard, row, column);
                     }
-                    outputBoard += "\n";
-
-                }
-
-                var resultedBoard = outputBoard.TrimEnd('\n');
-                var findWinner = new CheckingWinner();
-                var output = findWinner.CheckWinner(resultedBoard, letter, position);
-                if (resultedBoard.Contains("."))
-                {
-                    if (output != "")
+                    else
                     {
-                        return resultedBoard + '\n' + output;
+                        resultedBoard += arrayBoard[row][column]; 
                     }
                 }
-                else if (!resultedBoard.Contains(".") && output == "")
-                {
-                    ResetBoard resetBoard = new ResetBoard();
-                    var result = resetBoard.ResettingBoard(arrayBoard);
-                    return result;
-                }
-                return outputBoard.TrimEnd('\n');
+                resultedBoard += "\n";
             }
+
+            var outputBoard = resultedBoard.TrimEnd('\n');
+            var isWinner = CheckForWinner(outputBoard, letter, position);
+            
+            if (outputBoard.Contains("."))
+            {
+                if (isWinner != "")
+                {
+                    return outputBoard + '\n' + isWinner;
+                }
+            }
+            else if (!outputBoard.Contains(".") && isWinner == "")
+            {
+                ResetBoard resetBoard = new ResetBoard();
+                return outputBoard = resetBoard.ResettingBoard(arrayBoard);
+            }
+            return outputBoard;
+        }
+
+        private string CheckForWinner(string outputBoard, string letter, string[] position)
+        {
+            var findWinner = new CheckingWinner();
+            return findWinner.CheckWinner(outputBoard, letter, position);
+        }
+
+        private static string ConvertedBoardFromUserInput(string letter, string outputBoard, string[] arrayBoard, int row, int column)
+        {
+            if (arrayBoard[row][column] == '.')
+            {
+                outputBoard += letter;
+            }
+            else
+            {
+                outputBoard += arrayBoard[row][column];
+            }
+
+            return outputBoard;
+        }
     }
 }

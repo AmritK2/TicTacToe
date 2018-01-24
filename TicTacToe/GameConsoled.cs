@@ -25,8 +25,8 @@ namespace TicTacToe
                     changedBoard = computerInputReturnedBoard.ComputerResultedBoard(startBoard);
                 } while (changedBoard == startBoard);
 
-                    Console.Clear();
-                Console.WriteLine(changedBoard + '\n' +  "Please input a letter and coordinates: eg. X row,col");
+                Console.Clear();
+                Console.WriteLine(changedBoard + '\n' + "Please input a letter and coordinates: eg. X row,col");
 
                 string userInput = Console.ReadLine();
                 var input = userInput.Split(' ');
@@ -38,20 +38,20 @@ namespace TicTacToe
 
                 Console.Clear();
                 Console.WriteLine(resultedBoard);
-
-                if (!resultedBoard.Contains("won"))
-                {
-                    startBoard = resultedBoard;
-                }
-
-                else
-                {
-                    var resultedArrayBoard = resultedBoard.Split('\n');
-                    ResetBoard newBoard = new ResetBoard();
-                    var result = newBoard.ResettingBoard(resultedArrayBoard);
-                    startBoard =  resultedBoard;
-                }
+                startBoard = NewBoard(resultedBoard);
             }
+        }
+
+        private static string NewBoard(string resultedBoard)
+        {
+            string startBoard = "...\n" +
+                                "...\n" +
+                                "...";
+            if (resultedBoard.Contains("won"))
+            {
+                return startBoard;
+            }
+            return resultedBoard;
         }
     }
 }

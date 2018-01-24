@@ -10,75 +10,75 @@ namespace TicTacToe
     [TestFixture]
     public class GameShould
     {
-        [TestCase( "...\n" +
-                   "...\n" +
-                   "...", 
-                   "X", 
-                   "1,1",
-                   
-                   "X..\n" +
-                   "...\n" +
-                   "...")]
+        [TestCase("...\n" +
+                  "...\n" +
+                  "...",
+            "X",
+            "1,1",
+
+            "X..\n" +
+            "...\n" +
+            "...")]
 
         [TestCase("...\n" +
                   "...\n" +
                   "...",
-                  "O",
-                  "2,2",
+            "O",
+            "2,2",
 
-                  "...\n" +
-                  ".O.\n" +
-                  "...")]
-
-        [TestCase("...\n" +
-                  "...\n" +
-                  ".X.",
-                  "O",
-                  "3,2",
-
-                  "...\n" +
-                  "...\n" +
-                  ".X.")]
+            "...\n" +
+            ".O.\n" +
+            "...")]
 
         [TestCase("...\n" +
                   "...\n" +
                   ".X.",
-                  "q",
-                  "3,2",
+            "O",
+            "3,2",
 
-                 "You gave up :(")]
+            "...\n" +
+            "...\n" +
+            ".X.")]
+
+        [TestCase("...\n" +
+                  "...\n" +
+                  ".X.",
+            "q",
+            "3,2",
+
+            "You gave up :(")]
 
         [TestCase("X.O\n" +
                   "XO.\n" +
                   "...",
-                  "X",
-                  "3,1",
+            "X",
+            "3,1",
 
-                  "X.O\n" +
-                  "XO.\n" +
-                  "X..\n" +
-                  "You've won the game!")]
+            "X.O\n" +
+            "XO.\n" +
+            "X..\n" +
+            "You've won the game!")]
 
         [TestCase("OO.\n" +
                   ".XX\n" + // not working
                   "...",
-                  "X",
-                  "3,1",
+            "X",
+            "3,1",
 
-                  "OO.\n" +
-                  ".XX\n" +
-                  "X..")]
+            "OO.\n" +
+            ".XX\n" +
+            "X..")]
 
         [TestCase("X.O\n" +
                   ".OX\n" +
                   "...",
-                  "O",   // not working
-                  "3,1",
+            "O",
+            "3,1",
 
-                  "X.O\n" +
-                  ".OX\n" +
-                  "O..\n" +
-                  "You've won the game!")] 
+            "X.O\n" +
+            ".OX\n" +
+            "O..\n" +
+            "You've won the game!")]
 
         public void ShouldReturnOutputBoard(string inputBoard, string letter, string coord, string outputBoard)
         {
