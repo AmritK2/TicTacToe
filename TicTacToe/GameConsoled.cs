@@ -38,7 +38,19 @@ namespace TicTacToe
 
                 Console.Clear();
                 Console.WriteLine(resultedBoard);
-                startBoard = resultedBoard;
+
+                if (!resultedBoard.Contains("won"))
+                {
+                    startBoard = resultedBoard;
+                }
+
+                else
+                {
+                    var resultedArrayBoard = resultedBoard.Split('\n');
+                    ResetBoard newBoard = new ResetBoard();
+                    var result = newBoard.ResettingBoard(resultedArrayBoard);
+                    startBoard =  resultedBoard;
+                }
             }
         }
     }

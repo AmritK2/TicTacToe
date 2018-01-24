@@ -54,7 +54,6 @@ namespace TicTacToe
                         return resultedBoard + '\n' + output;
                     }
                 }
-
                 else if (!resultedBoard.Contains(".") && output == "")
                 {
                     ResetBoard resetBoard = new ResetBoard();
@@ -62,7 +61,6 @@ namespace TicTacToe
                     return result;
                 }
                 return outputBoard.TrimEnd('\n');
-
             }
     }
 }
