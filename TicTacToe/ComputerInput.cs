@@ -22,13 +22,18 @@ namespace TicTacToe
             Random r = new Random();
             int index = r.Next(possiblePositions.Count);
             string chosenPosition = possiblePositions[index];
-            
+
             Game getPersonBoard = new Game();
             string resultedBoard = getPersonBoard.ReturnOutputBoard(letter, chosenPosition, startBoard);
 
+            if (resultedBoard.Contains("won"))
+            {
+                string resetBoard = "...\n" +
+                                    "...\n" +
+                                    "...";
+                return resetBoard;
+            }
             return resultedBoard;
         }
-        
-
     }
 }

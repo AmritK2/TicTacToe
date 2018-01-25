@@ -28,7 +28,6 @@ namespace TicTacToe
 
                 Console.Clear();
                 Console.WriteLine(changedBoard + '\n' + "Please input a letter and coordinates: eg. X row,col");
-                changedBoard = NewBoard(changedBoard);
 
                 do
                 {
@@ -55,6 +54,7 @@ namespace TicTacToe
             {
                 return startBoard;
             }
+            Console.Clear();
             return checkBoardForWin;
         }
     }

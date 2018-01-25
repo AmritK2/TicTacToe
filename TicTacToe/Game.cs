@@ -65,10 +65,8 @@ namespace TicTacToe
             }
             else
             {
-                Console.WriteLine("You can only choose a place which is not already taken. Try Again.");
                 outputBoard += arrayBoard[row][column];
             }
-
             return outputBoard;
         }
     }
