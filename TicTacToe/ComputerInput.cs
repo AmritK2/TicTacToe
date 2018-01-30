@@ -12,7 +12,7 @@ namespace TicTacToe
 {
     public class ComputerInput
     {
-        public string ComputerResultedBoard(string startBoard)
+        public string ComputerPlayerInput(string startBoard)
         {
             string letter = "X";
 
@@ -20,11 +20,11 @@ namespace TicTacToe
                 new List<string> {"1,1", "1,2", "1,3", "2,1", "2,2", "2,3", "3,1", "3,2", "3,3"};
 
             Random r = new Random();
-            int index = r.Next(possiblePositions.Count);
-            string chosenPosition = possiblePositions[index];
+            int randomlySelectedIndex = r.Next(possiblePositions.Count);
+            string randomlySelectedCoord = possiblePositions[randomlySelectedIndex];
 
-            Game getPersonBoard = new Game();
-            string resultedBoard = getPersonBoard.ReturnOutputBoard(letter, chosenPosition, startBoard);
+            Game getBoardAfterComputerPlayer = new Game();
+            string resultedBoard = getBoardAfterComputerPlayer.TransformingBoard(letter, randomlySelectedCoord, startBoard);
 
             if (resultedBoard.Contains("won"))
             {

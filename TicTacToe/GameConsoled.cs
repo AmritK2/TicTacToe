@@ -11,8 +11,8 @@ namespace TicTacToe
     {
         static void Main(string[] args)
         {
-            var changedBoard = "";
-            var resultedBoard = "";
+            var computerTransformedGameBoard = "";
+            var humanComputerTransformedBoard = "";
             string startBoard = "...\n" +
                                 "...\n" +
                                 "...";
@@ -20,29 +20,42 @@ namespace TicTacToe
 
             while (true)
             {
-                ComputerInput computerInputReturnedBoard = new ComputerInput();
-                do
-                {
-                    changedBoard = computerInputReturnedBoard.ComputerResultedBoard(startBoard);
-                } while (changedBoard == startBoard);
-
+                computerTransformedGameBoard = ComputerTurn(startBoard);
                 Console.Clear();
-                Console.WriteLine(changedBoard + '\n' + "Please input a letter and coordinates: eg. X row,col");
+                Console.WriteLine(computerTransformedGameBoard + '\n' + "Please input a letter and coordinates: eg. X row,col");
 
-                do
-                {
-                    string userInput = Console.ReadLine();
-                    var input = userInput.Split(' ');
-                    var letter = input[0];
-                    var coord = input[1];
-                    Game getBoard = new Game();
-                    resultedBoard = getBoard.ReturnOutputBoard(letter, coord, changedBoard);
-                } while (resultedBoard == changedBoard);
-
+                humanComputerTransformedBoard = HumanTurn(computerTransformedGameBoard);
                 Console.Clear();
-                Console.WriteLine(resultedBoard);
-                startBoard = NewBoard(resultedBoard);
+                Console.WriteLine(humanComputerTransformedBoard);
+
+                startBoard = NewBoard(humanComputerTransformedBoard);
             }
+        }
+
+        private static string ComputerTurn(string startBoard)
+        {
+            string resultedComputerTransformedGameBoard;
+            ComputerInput getComputerInputBoard = new ComputerInput();
+            do
+            {
+                resultedComputerTransformedGameBoard = getComputerInputBoard.ComputerPlayerInput(startBoard);
+            } while (resultedComputerTransformedGameBoard == startBoard);
+            return resultedComputerTransformedGameBoard;
+        }
+
+        private static string HumanTurn(string computerTransformedGameBoard)
+        {
+            string humanComputerTransformedBoard;
+            do
+            {
+                string humanPlayerInput = Console.ReadLine();
+                var input = humanPlayerInput.Split(' ');
+                var letter = input[0];
+                var coord = input[1];
+                Game getHumanInputBoard = new Game();
+                humanComputerTransformedBoard = getHumanInputBoard.TransformingBoard(letter, coord, computerTransformedGameBoard);
+            } while (humanComputerTransformedBoard == computerTransformedGameBoard);
+            return humanComputerTransformedBoard;
         }
 
         private static string NewBoard(string checkBoardForWin)

@@ -8,7 +8,7 @@ namespace TicTacToe
 {
     public class WinningLines
     {
-        private List<List<Point>> WinningLine = new List<List<Point>>
+        private List<List<Point>> PossibleWinningLines = new List<List<Point>>
         {
             new List<Point> {new Point(0, 0), new Point(0, 1), new Point(0, 2)},
             new List<Point> {new Point(1, 0), new Point(1, 1), new Point(1, 2)},
@@ -35,7 +35,7 @@ namespace TicTacToe
         public bool CheckNeighbours(string letter, string[] arrayBoard, string[] position)
         {
             var sign = char.Parse(letter);
-            return WinningLine.Any(winningLine =>
+            return PossibleWinningLines.Any(winningLine =>
                 winningLine.All(point => arrayBoard[point.Row][point.Column] == sign));
         }
     }

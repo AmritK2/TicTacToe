@@ -7,7 +7,7 @@ namespace TicTacToe
 {
     public class Game
     {
-        public string ReturnOutputBoard(string letter, string coord, string inputBoard)
+        public string TransformingBoard(string letter, string coord, string inputBoard)
         {
             if (letter == "q")
             {
@@ -16,48 +16,26 @@ namespace TicTacToe
 
             var resultedBoard = string.Empty;
             var position = coord.Split(',');
-            var arrayBoard = inputBoard.Split('\n');
-            for (var row = 0; row < arrayBoard.Length; row++)
+            var arrayGameBoard = inputBoard.Split('\n');
+            for (var row = 0; row < arrayGameBoard.Length; row++)
             {
-                for (var column = 0; column < arrayBoard.Length; column++)
+                for (var column = 0; column < arrayGameBoard.Length; column++)
                 {
                     if (row == int.Parse(position[0]) - 1 && column == int.Parse(position[1]) - 1)
                     {
-                        resultedBoard = ConvertedBoardFromUserInput(letter, resultedBoard, arrayBoard, row, column);
+                        resultedBoard = ConvertedBoardUsingInput(letter, resultedBoard, arrayGameBoard, row, column);
                     }
                     else
                     {
-                        resultedBoard += arrayBoard[row][column]; 
+                        resultedBoard += arrayGameBoard[row][column];
                     }
                 }
                 resultedBoard += "\n";
             }
-
-            var outputBoard = resultedBoard.TrimEnd('\n');
-            var isWinner = CheckForWinner(outputBoard, letter, position);
-            
-            if (outputBoard.Contains("."))
-            {
-                if (isWinner != "")
-                {
-                    return outputBoard + '\n' + isWinner;
-                }
-            }
-            else if (!outputBoard.Contains("."))
-            {
-                ResetBoard resetBoard = new ResetBoard();
-                return outputBoard = resetBoard.ResettingBoard(arrayBoard);
-            }
-            return outputBoard;
+            return ReturnedBoardForNextPlayer(letter, resultedBoard, position, arrayGameBoard);
         }
 
-        private string CheckForWinner(string outputBoard, string letter, string[] position)
-        {
-            var findWinner = new CheckingWinner();
-            return findWinner.CheckWinner(outputBoard, letter, position);
-        }
-
-        private static string ConvertedBoardFromUserInput(string letter, string outputBoard, string[] arrayBoard, int row, int column)
+        private static string ConvertedBoardUsingInput(string letter, string outputBoard, string[] arrayBoard, int row, int column)
         {
             if (arrayBoard[row][column] == '.')
             {
@@ -68,6 +46,32 @@ namespace TicTacToe
                 outputBoard += arrayBoard[row][column];
             }
             return outputBoard;
+        }
+
+        private string ReturnedBoardForNextPlayer(string letter, string resultedBoard, string[] position, string[] arrayGameBoard)
+        {
+            var outputBoard = resultedBoard.TrimEnd('\n');
+            var isWinner = CheckForWinner(outputBoard, letter, position);
+
+            if (outputBoard.Contains("."))
+            {
+                if (isWinner != "")
+                {
+                    return outputBoard + '\n' + isWinner;
+                }
+            }
+            else if (!outputBoard.Contains("."))
+            {
+                ResetBoard resetBoard = new ResetBoard();
+                return outputBoard = resetBoard.ResettingBoard(arrayGameBoard);
+            }
+            return outputBoard;
+        }
+
+        private string CheckForWinner(string outputBoard, string letter, string[] position)
+        {
+            var findIfWinner = new CheckingWinner();
+            return findIfWinner.CheckWinner(outputBoard, letter, position);
         }
     }
 }

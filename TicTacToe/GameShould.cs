@@ -83,7 +83,7 @@ namespace TicTacToe
         public void ShouldReturnOutputBoard(string inputBoard, string letter, string coord, string outputBoard)
         {
             var game = new Game();
-            var result = game.ReturnOutputBoard(letter, coord, inputBoard);
+            var result = game.TransformingBoard(letter, coord, inputBoard);
             Assert.AreEqual(outputBoard, result);
         }
     }
