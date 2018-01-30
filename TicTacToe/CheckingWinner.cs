@@ -15,7 +15,8 @@ namespace TicTacToe
             {
                 for (var column = 0; column < arrayBoard[0].Length; column++) // columns
                 {
-                    var checkWinnerUsingLetter = new WinningLines();
+                    var checkWinnerUsingLetter = new WinningLines(); //move to constructor- 
+                    //same name s
                     var hasWon = checkWinnerUsingLetter.CheckNeighbours(letter, arrayBoard, position);
                     if (hasWon)
                     {

@@ -60,7 +60,7 @@ namespace TicTacToe
             "You've won the game!")]
 
         [TestCase("OO.\n" +
-                  ".XX\n" + // not working
+                  ".XX\n" + 
                   "...",
             "X",
             "3,1",
@@ -79,7 +79,7 @@ namespace TicTacToe
             ".OX\n" +
             "O..\n" +
             "You've won the game!")]
-
+        // add tests for the  not tested classes
         public void ShouldReturnOutputBoard(string inputBoard, string letter, string coord, string outputBoard)
         {
             var game = new Game();

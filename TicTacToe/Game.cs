@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using NUnit.Framework;
-
-namespace TicTacToe
+﻿namespace TicTacToe
 {
     public class Game
     {
@@ -53,7 +48,7 @@ namespace TicTacToe
             var outputBoard = resultedBoard.TrimEnd('\n');
             var isWinner = CheckForWinner(outputBoard, letter, position);
 
-            if (outputBoard.Contains("."))
+            if (outputBoard.Contains(".")) // !full board? - extrsct tp a finction
             {
                 if (isWinner != "")
                 {
@@ -63,7 +58,7 @@ namespace TicTacToe
             else if (!outputBoard.Contains("."))
             {
                 ResetBoard resetBoard = new ResetBoard();
-                return outputBoard = resetBoard.ResettingBoard(arrayGameBoard);
+                return resetBoard.ResettingBoard(arrayGameBoard);
             }
             return outputBoard;
         }
