@@ -1,12 +1,5 @@
 ﻿using System;
-using System.CodeDom;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlTypes;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TicTacToe
 {
@@ -14,26 +7,23 @@ namespace TicTacToe
     {
         public string ComputerPlayerInput(string startBoard)
         {
-            string letter = "X";
+            const string letter = "X";
 
-            List<string> possiblePositions =
+            var possiblePositions =
                 new List<string> {"1,1", "1,2", "1,3", "2,1", "2,2", "2,3", "3,1", "3,2", "3,3"};
 
-            Random r = new Random();
-            int randomlySelectedIndex = r.Next(possiblePositions.Count);
-            string randomlySelectedCoord = possiblePositions[randomlySelectedIndex];
+            var r = new Random();
+            var randomlySelectedIndex = r.Next(possiblePositions.Count);
+            var randomlySelectedCoord = possiblePositions[randomlySelectedIndex];
 
-            Game getBoardAfterComputerPlayer = new Game();
-            string resultedBoard = getBoardAfterComputerPlayer.TransformingBoard(letter, randomlySelectedCoord, startBoard);
+            var getBoardAfterComputerPlayer = new Game();
+            var resultedBoard = getBoardAfterComputerPlayer.TransformingBoard(letter, randomlySelectedCoord, startBoard);
 
-            if (resultedBoard.Contains("won"))
-            {
-                string resetBoard = "...\n" +
-                                    "...\n" +
-                                    "...";
-                return resetBoard;
-            }
-            return resultedBoard;
+            if (!resultedBoard.Contains("won")) return resultedBoard;
+            const string resetBoard = "...\n" +
+                                      "...\n" +
+                                      "...";
+            return resetBoard;
         }
     }
 }

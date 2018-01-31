@@ -9,7 +9,7 @@
                 return "You gave up :(";
             }
 
-            var resultedBoard = string.Empty;
+            var boardAfterPlayerInput = string.Empty;
             var position = coord.Split(',');
             var arrayGameBoard = inputBoard.Split('\n');
             for (var row = 0; row < arrayGameBoard.Length; row++)
@@ -18,55 +18,56 @@
                 {
                     if (row == int.Parse(position[0]) - 1 && column == int.Parse(position[1]) - 1)
                     {
-                        resultedBoard = ConvertedBoardUsingInput(letter, resultedBoard, arrayGameBoard, row, column);
+                        boardAfterPlayerInput = AddingPlayerInputToTheBoard(letter, boardAfterPlayerInput, arrayGameBoard, row, column);
                     }
                     else
                     {
-                        resultedBoard += arrayGameBoard[row][column];
+                        boardAfterPlayerInput += arrayGameBoard[row][column];
                     }
                 }
-                resultedBoard += "\n";
+                boardAfterPlayerInput += "\n";
             }
-            return ReturnedBoardForNextPlayer(letter, resultedBoard, position, arrayGameBoard);
+            return ReturnedBoardForNextPlayer(letter, boardAfterPlayerInput, position, arrayGameBoard);
         }
 
-        private static string ConvertedBoardUsingInput(string letter, string outputBoard, string[] arrayBoard, int row, int column)
+        private static string AddingPlayerInputToTheBoard(string letter, string boardAfterPlayerInput, string[] arrayBoard, int row, int column)
         {
             if (arrayBoard[row][column] == '.')
             {
-                outputBoard += letter;
+                boardAfterPlayerInput += letter;
             }
             else
             {
-                outputBoard += arrayBoard[row][column];
+                boardAfterPlayerInput += arrayBoard[row][column];
             }
-            return outputBoard;
+            return boardAfterPlayerInput;
         }
 
-        private string ReturnedBoardForNextPlayer(string letter, string resultedBoard, string[] position, string[] arrayGameBoard)
+        private static string ReturnedBoardForNextPlayer(string letter, string boardAfterPlayerInput, string[] position, string[] arrayGameBoard)
         {
-            var outputBoard = resultedBoard.TrimEnd('\n');
-            var isWinner = CheckForWinner(outputBoard, letter, position);
+            var outputBoard = boardAfterPlayerInput.TrimEnd('\n');
+            var boardFull = !outputBoard.Contains(".");
 
-            if (outputBoard.Contains(".")) // !full board? - extrsct tp a finction
+            if (!boardFull) // !full board? - extrsct tp a finction
             {
+                var isWinner = CheckForWinner(outputBoard, letter, position);
                 if (isWinner != "")
                 {
                     return outputBoard + '\n' + isWinner;
                 }
             }
-            else if (!outputBoard.Contains("."))
+            else
             {
-                ResetBoard resetBoard = new ResetBoard();
+                var resetBoard = new ResetBoard();
                 return resetBoard.ResettingBoard(arrayGameBoard);
             }
             return outputBoard;
         }
 
-        private string CheckForWinner(string outputBoard, string letter, string[] position)
+        private static string CheckForWinner(string outputBoard, string letter, string[] position)
         {
-            var findIfWinner = new CheckingWinner();
-            return findIfWinner.CheckWinner(outputBoard, letter, position);
+            var checkingWinner = new CheckingWinner();
+            return checkingWinner.CheckWinner(outputBoard, letter, position);
         }
     }
 }
